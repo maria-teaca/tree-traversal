@@ -1,5 +1,5 @@
 from node import Node
-
+import unittest
 
 class Tree:
     """ Tree class for binary tree """
@@ -63,15 +63,18 @@ class Tree:
 
     def deleteTree(self):
         # TODO 1
+        """Method for deleting a tree"""
         self.root = None
 
     def printTree(self):
         # TODO 1
+        """Method for printing a tree"""
         if self.root is not None:
             self._printInorderTree(self.root)
 
     def _printInorderTree(self, node):
         # TODO 1
+        """Method for printing a tree using inorder traversal"""
         if node is not None:
             self._printInorderTree(node.left)
             print(str(node.data) + ' ')
@@ -79,10 +82,29 @@ class Tree:
 
     def _printPreorderTree(self, node):
         # TODO 2
-        pass
+        """Method for printing a tree using preorder traversal"""
+        if node is not None:
+            print(str(node.data) + ' ')
+            self._printPreorderTree(node.left)
+            self._printPreorderTree(node.right)
+
 
     def _printPostorderTree(self, node):
         # TODO 2
-        pass
+        """Method for printing a tree using postorder traversal"""
+        if node is not None:
+            self._printPostorderTree(node.left)
+            self._printPostorderTree(node.right)
+            print(str(node.data) + ' ')
 
+class TreeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = Tree()
+        self.tree.add(1)
+        self.tree.add(2)
+        self.tree.add(3)
 
+    def test__find(self):
+        root = self.tree.getRoot()
+        self.assertIsNotNone(self.tree._find(1, root))
+        self.assertEqual(self.tree._find(4, root), None)
